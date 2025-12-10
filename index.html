@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Only for You</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: black;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-weight: bold;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            border: 5px solid pink;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
+            margin-bottom: 10px;
+            transition: filter 0.7s;
+        }
+        img:hover {
+            filter: grayscale(100%);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ff4d4d;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            transition: background-color 1s;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: grey;
+        }
+        .stop {
+            background-color: grey;
+        }
+
+    </style>
+</head>
+<body>
+    <img src="items/rose.png" alt="Rose Image">
+
+    <button id="playButton">Play Sound</button>
+    <audio id="audio" src="items/Rizz.mp3" preload="auto"></audio>
+
+    <script>
+        let audioContext;
+        const audio = document.getElementById('audio');
+        const playButton = document.getElementById('playButton');
+        playButton.addEventListener('click', function() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audio.paused) {
+                audioContext.resume().then(() => {
+                    console.log('Playback resumed successfully');
+                    audio.play();
+                    playButton.textContent = 'Stop';
+                    playButton.classList.add('stop');
+                });
+            } else {
+                audio.pause();
+                playButton.textContent = 'Play Sound';
+                playButton.classList.remove('stop');
+            }
+        });
+    </script>
+</body>
+</html>
